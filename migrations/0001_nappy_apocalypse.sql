@@ -1,0 +1,1 @@
+ALTER TABLE "admins" ADD COLUMN "salt" varchar(18) NOT NULL;
