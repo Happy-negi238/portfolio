@@ -2,9 +2,7 @@
 
 import * as React from 'react';
 
-import { NavDocuments } from '@/components/nav-documents';
 import { NavMain } from '@/components/nav-main';
-import { NavSecondary } from '@/components/nav-secondary';
 import { NavUser } from '@/components/nav-user';
 import {
   Sidebar,
@@ -23,6 +21,7 @@ import {
   FileTextIcon,
   CommandIcon,
   HomeIcon,
+  User2Icon,
 } from 'lucide-react';
 
 const data = {
@@ -41,6 +40,11 @@ const data = {
       title: 'Project list',
       url: '/admin/projectlist',
       icon: <ListIcon />,
+    },
+    {
+      title: 'Admin Config',
+      url: '/admin/config',
+      icon: <User2Icon />,
     },
 
     {
@@ -127,7 +131,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

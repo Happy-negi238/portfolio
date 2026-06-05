@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import ProfileImage from '@/../public/profileImage.jpeg';
+import { Mail } from 'lucide-react';
+import Link from 'next/link';
+// import Resume from '@/../public/pdf/chandrapal_resume.pdf';
 
 export const Landing = () => {
   return (
@@ -19,7 +22,7 @@ export const Landing = () => {
               <span className="text-neutral-100">Full Stack Developer</span>
             </h1>
 
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-neutral-500">
+            <p className="mt-7 max-w-xl text-lg leading-relaxing text-neutral-400">
               I build modern web applications using React, Next.js, TypeScript,
               Node.js, Express, MongoDB, PostgreSQL. I enjoy creating scalable
               products with clean UI, real-time features, and efficient backend
@@ -27,37 +30,61 @@ export const Landing = () => {
             </p>
 
             <div className=" flex gap-2 mt-7 justify-center lg:justify-start text-sm text-neutral-200">
-              <i className="ri-twitter-x-fill bg-neutral-800 px-3 py-2 rounded cursor-pointer"></i>
-              <i className="ri-linkedin-fill bg-neutral-800 px-3 py-2 rounded cursor-pointer"></i>
-              <i className="ri-google-fill bg-neutral-800 px-3 py-2 rounded cursor-pointer"></i>
-              <i className="ri-hashnode-fill bg-neutral-800 px-3 py-2 rounded cursor-pointer">
-                H
-              </i>
+              <Link
+                href="https://x.com/HappyNegi1221"
+                target="_blank"
+                aria-label="twitter account"
+                className="bg-neutral-800 hover:bg-neutral-700/70 
+                transition duration-300 px-3 py-2 rounded cursor-pointer 
+                shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)] hover:shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)]
+                border border-neutral-700"
+              >
+                <i className="ri-twitter-x-fill "></i>
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/in/chandrapal-singh-negi-32a842334/"
+                target="_blank"
+                aria-label="linkedin account"
+                className="bg-neutral-800 hover:bg-neutral-700/70
+                transition duration-300 px-3 py-2 rounded cursor-pointer
+                shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)] hover:shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)]
+                border border-neutral-700"
+              >
+                <i className="ri-linkedin-fill"></i>
+              </Link>
+
+              <Link
+                href="mailto:happynegi238@gmail.com"
+                target="_blank"
+                aria-label="gmail account"
+                className="bg-neutral-800 hover:bg-neutral-700/70  
+              transition duration-300 px-3 py-2 rounded cursor-pointer
+              shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)] hover:shadow-[1px_1px_1px_0_rgba(255,255,255,0.6)]
+              border border-neutral-700"
+              >
+                <Mail color="white" strokeWidth={1} size={20} />
+              </Link>
             </div>
 
             <div className="mt-7 flex flex-wrap justify-center gap-4 lg:justify-start">
-              <button
-                className="rounded-lg border border-white bg-white px-6 py-3 
-              font-medium text-black transition hover:opacity-90 cursor-pointer"
-              >
-                View Projects
-              </button>
-
-              <button
-                className="rounded-lg border border-neutral-700 px-6 py-3 
-              font-medium transition hover:border-neutral-500 cursor-pointer"
-              >
-                Download Resume
-              </button>
+              <Link href="/pdf/chandrapal_resume.pdf" target="_blank">
+                <button
+                  className="rounded-lg flex gap-1 bg-white/90 px-6 py-3 font-medium text-black 
+                tracking-tight transition hover:opacity-90 cursor-pointer"
+                >
+                  View Resume
+                </button>
+              </Link>
             </div>
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 rounded-3xl bg-white/5 blur-3xl" />
-
+            <div className="absolute inset-0 rounded-3xl bg-transparent" />
             <Image
               src={ProfileImage}
               alt="Happy Negi"
+              loading="eager"
               width={320}
               height={320}
               className="
@@ -68,6 +95,7 @@ export const Landing = () => {
                 object-cover
                 transition-all
                 duration-500
+                p-1.5
               "
             />
           </div>

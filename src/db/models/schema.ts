@@ -5,6 +5,8 @@ import {
   text,
   timestamp,
   boolean,
+  integer,
+  serial,
 } from 'drizzle-orm/pg-core';
 
 export const admins = pgTable('admins', {
@@ -22,7 +24,7 @@ export const projects = pgTable('projects', {
   name: varchar('name', { length: 255 }).notNull(),
   description: text('description').notNull(),
   techStack: text('tech_stack').array().notNull(),
-  githubLink: text('github_link').notNull(),
+  githubLink: text('github_link'),
   deployLink: text('deploy_link'),
   image: text('image'),
   isDeleted: boolean('is_deleted').default(false).notNull(),
@@ -37,4 +39,12 @@ export const contacts = pgTable('contacts', {
   phoneNo: varchar('phone_no', { length: 20 }),
   message: text('message').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const visitors = pgTable('visitors', {
+  id: serial('id').primaryKey(),
+  visitorId: varchar('visitor_id', {length: 255}).unique().notNull(),
+  visits: integer('visits').default(1).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  lastVisit: timestamp('last_visit').defaultNow().notNull(),
 });

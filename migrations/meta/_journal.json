@@ -29,6 +29,20 @@
       "when": 1780261813988,
       "tag": "0003_tough_marvel_boy",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1780662096652,
+      "tag": "0004_dizzy_jackpot",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1780696456910,
+      "tag": "0005_famous_colleen_wing",
+      "breakpoints": true
     }
   ]
 }

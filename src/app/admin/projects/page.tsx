@@ -41,8 +41,8 @@ export default function projects() {
       zodName,
       zodDescription,
       zodTechStack,
-      zodGithubLink,
-      zodDeployLink,
+      zodGithubLink ?? '',
+      zodDeployLink ?? '',
       imageFile
     );
 
@@ -98,11 +98,6 @@ export default function projects() {
                   value: 10,
                   message: 'Project description must be at least 10 characters',
                 },
-                maxLength: {
-                  value: 200,
-                  message:
-                    'Project description must be less than 200 characters',
-                },
               })}
               className="w-full rounded-md border px-3 py-2"
               placeholder="Describe your project..."
@@ -148,12 +143,12 @@ export default function projects() {
             <input
               type="url"
               {...register('zodGithubLink', {
-                required: 'GitHub link is required',
                 pattern: {
                   value:
                     /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
                   message: 'Invalid GitHub URL format',
                 },
+                
               })}
               className="w-full rounded-md border px-3 py-2"
               placeholder="https://github.com/username/project"
@@ -172,7 +167,6 @@ export default function projects() {
             <input
               type="url"
               {...register('zodDeployLink', {
-                required: 'Deploy link is required',
                 pattern: {
                   value: /^https?:\/\/.+$/,
                   message: 'Invalid deploy URL format',
@@ -195,9 +189,9 @@ export default function projects() {
             <input
               type="file"
               accept="image/*"
-              {...register('zodImage', {
-                required: 'Project image is required',
-              })}
+              // {...register('zodImage', {
+              //   required: 'Project image is required',
+              // })}
               className="w-full rounded-md border px-3 py-2"
             />
             {errors.zodImage?.message && (
@@ -210,7 +204,7 @@ export default function projects() {
           <button
             type="submit"
             className={`rounded-md bg-primary px-4 py-2 text-primary-foreground cursor-pointer transition
-                            ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary/90'} `}
+            ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary/90'} `}
           >
             {isLoading ? 'Creating...' : 'Create Project'}
           </button>

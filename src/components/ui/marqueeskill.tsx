@@ -1,11 +1,16 @@
 import { Marquee, MarqueeContent, MarqueeItem } from '@/components/ui/marquee';
 import Image from 'next/image';
-import ReactLogo from '@/../public/icon/react.svg';
-import ExpressLogo from '@/../public/icon/express.svg';
+
+import ReactLogo from '@/../public/icon/react.js.svg';
+import ExpressLogo from '@/../public/icon/express.js.svg';
 import jsLogo from '@/../public/icon/js.svg';
-import Nodelogo from '@/../public/icon/node.svg';
+import Nodelogo from '@/../public/icon/node.js.svg';
 import tsLogo from '@/../public/icon/typescript.svg';
-import nextLogo from '@/../public/icon/next.svg';
+import nextLogo from '@/../public/icon/next.js.svg';
+
+import postgres from "@/../public/icon/postgresql.svg"
+import drizzle from "@/../public/icon/drizzle.svg";
+import zod from "@/../public/icon/zod.svg";
 
 export const Marqueeskill = () => {
   const skillClass = `flex items-center gap-2 bg-neutral-400/20  rounded-sm
@@ -45,6 +50,22 @@ export const Marqueeskill = () => {
             <Image src={jsLogo} alt="JavaScript" width={30} height={36} />{' '}
             <span>JavaScript</span>
           </MarqueeItem>
+
+          <MarqueeItem className={skillClass}>
+            <Image src={drizzle} alt="drizzle" width={30} height={36} />{' '}
+            <span>Drizzle</span>
+          </MarqueeItem>
+
+          <MarqueeItem className={skillClass}>
+            <Image src={postgres} alt="postgres" width={30} height={36} />{' '}
+            <span>Postgres</span>
+          </MarqueeItem>
+
+          <MarqueeItem className={skillClass}>
+            <Image src={zod} alt="zod" width={30} height={36} />{' '}
+            <span>Zod</span>
+          </MarqueeItem>
+
         </MarqueeContent>
       </Marquee>
     </div>

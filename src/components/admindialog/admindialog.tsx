@@ -7,12 +7,20 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { validateAdminInputTypes } from '@/../validate/validateTypes';
 
+import { verifyUser } from '@/../actions/admin';
+
 export const AdminDialog = ({ className }: { className?: string }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +30,16 @@ export const AdminDialog = ({ className }: { className?: string }) => {
   });
 
   const submit: SubmitHandler<validateAdminInputTypes> = async (data) => {
-    console.log(data);
+    const { email, password } = data;
+    const response = await verifyUser(email, password);
+
+    if (!response.success) {
+      setError(response.message);
+      return;
+    }
+
+    setSuccess(response.message);
+    router.push('/admin');
   };
 
   return (
@@ -52,17 +69,17 @@ export const AdminDialog = ({ className }: { className?: string }) => {
                     },
                   })}
                   className="
-                                        w-full
-                                        rounded-lg
-                                        border border-neutral-500
-                                        border-dashed
-                                        px-4 py-3
-                                        text-white
-                                        outline-none
-                                        transition-colors
-                                        focus:border-neutral-400
-                                        placeholder:text-white/60
-                                    "
+                    w-full
+                    rounded-lg
+                    border border-neutral-500
+                    border-dashed
+                    px-4 py-3
+                    text-white
+                    outline-none
+                    transition-colors
+                    focus:border-neutral-400
+                    placeholder:text-white/60
+                  "
                 />
                 {errors.email?.message && (
                   <p className="mt-1 text-sm text-red-500">
@@ -90,17 +107,17 @@ export const AdminDialog = ({ className }: { className?: string }) => {
                     },
                   })}
                   className="
-                                        w-full
-                                        rounded-lg
-                                        border border-neutral-500
-                                        px-4 py-3
-                                        text-white
-                                        placeholder:text-white/60
-                                        border-dashed
-                                        outline-none
-                                        transition-colors
-                                        focus:border-neutral-400
-                                    "
+                    w-full
+                    rounded-lg
+                    border border-neutral-500
+                    px-4 py-3
+                    text-white
+                    placeholder:text-white/60
+                    border-dashed
+                    outline-none
+                    transition-colors
+                    focus:border-neutral-400
+                "
                 />
                 {errors.password?.message && (
                   <p className="mt-1 text-sm text-red-500">
@@ -112,17 +129,17 @@ export const AdminDialog = ({ className }: { className?: string }) => {
               <button
                 type="submit"
                 className="
-                                    w-full
-                                    rounded-lg
-                                    border border-neutral-800
-                                    bg-white
-                                    py-3
-                                    font-medium
-                                    text-black
-                                    transition-all
-                                    hover:bg-neutral-200
-                                    cursor-pointer
-                                    "
+                  w-full
+                  rounded-lg
+                  border border-neutral-800
+                  bg-white
+                  py-3
+                  font-medium
+                  text-black
+                  transition-all
+                  hover:bg-neutral-200
+                  cursor-pointer
+                  "
               >
                 Verify Admin
               </button>
@@ -130,6 +147,9 @@ export const AdminDialog = ({ className }: { className?: string }) => {
           </div>
         </DialogContent>
       </Dialog>
+      {success && <p className="mt-4 text-green-500">{success}</p>}
+
+      {error && <p className="mt-4 text-red-500">{error}</p>}
     </div>
   );
 };

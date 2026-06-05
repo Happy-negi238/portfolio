@@ -37,7 +37,7 @@ export const Contact = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full" id='contact'>
       <div className="border-y border-neutral-800 border-dashed px-10 py-10">
         <div className="mb-10">
           <h2 className="mt-2 text-4xl font-bold tracking-tight">Contact Me</h2>
@@ -73,7 +73,7 @@ export const Contact = () => {
                   message: 'Full name has too many characters',
                 },
               })}
-              className="w-full rounded-xl border border-neutral-800
+              className="w-full rounded-lg border border-neutral-800
                bg-neutral-950 px-4 py-3 outline-none transition focus:border-neutral-600"
             />
             {errors.fullName && (
@@ -106,7 +106,7 @@ export const Contact = () => {
                   message: 'Email has too many characters',
                 },
               })}
-              className="w-full rounded-xl border border-neutral-800 bg-neutral-950 px-4 py-3 outline-none transition focus:border-neutral-600"
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-4 py-3 outline-none transition focus:border-neutral-600"
             />
             {errors.email && (
               <p className="mt-1 text-sm text-red-500">
@@ -120,7 +120,7 @@ export const Contact = () => {
               htmlFor="phone"
               className="mb-2 block text-sm text-neutral-300"
             >
-              Phone Number <span className="text-neutral-500">(Optional)</span>
+              Phone Number <span className="text-neutral-400">(Optional)</span>
             </label>
 
             <input
@@ -133,7 +133,7 @@ export const Contact = () => {
                   message: 'Phone number has too many characters',
                 },
               })}
-              className="w-full rounded-xl border border-neutral-800 bg-neutral-950 
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 
               px-4 py-3 outline-none transition focus:border-neutral-600
               [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
@@ -167,7 +167,7 @@ export const Contact = () => {
                   message: 'Message must be at most 250 characters',
                 },
               })}
-              className="w-full resize-none rounded-xl border border-neutral-800 bg-neutral-950 px-4 py-3 outline-none transition focus:border-neutral-600"
+              className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 px-4 py-3 outline-none transition focus:border-neutral-600"
             />
             {errors.message?.message && (
               <p className="mt-1 text-sm text-red-500">
@@ -178,7 +178,7 @@ export const Contact = () => {
 
           <button
             type="submit"
-            className="rounded-md cursor-pointer border border-white bg-white px-6 py-3 font-medium text-black transition hover:opacity-90"
+            className="rounded-md cursor-pointer bg-white/80 px-6 py-3 font-medium text-black transition hover:opacity-90"
           >
             {isLoading ? 'Sending...' : 'Send Message'}
           </button>

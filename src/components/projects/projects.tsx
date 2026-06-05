@@ -1,27 +1,36 @@
+'use client';
+import { useState, useEffect } from 'react';
+
+import { Project } from '@/../validate/validateTypes';
+import { getProjects } from '@/../actions/project';
+import Link from 'next/link';
+import { GitBranch, Globe } from 'lucide-react';
+
+getProjects;
 export const Projects = () => {
-  const projects = [
-    {
-      title: 'Pollify',
-      description:
-        'Real-time polling platform built with Next.js, Node.js, Socket.IO, PostgreSQL, and Docker.',
-      github: '#',
-      live: '#',
-    },
-    {
-      title: 'Portfolio Website',
-      description:
-        'Personal portfolio showcasing projects, skills, and experience with modern UI design.',
-      github: '#',
-      live: '#',
-    },
-    {
-      title: 'Do it creation',
-      description: `A full-stack project management app with real-time collaboration, 
-        built using Next.js, Express, MySQL with integration of Razorpay for payments.`,
-      github: '#',
-      live: '#',
-    },
-  ];
+  const [state, setState] = useState<Project[] | null>(null);
+
+  useEffect(() => {
+    async function fetchProjectInfo() {
+      try {
+        const response = await getProjects();
+        if (
+          !response.success ||
+          !response.data ||
+          Object.keys(response.data).length === 0
+        ) {
+          console.error('No contact information found');
+          return;
+        }
+
+        setState(response.data);
+      } catch (error) {
+        console.error('Error fetching contact information:', error);
+      }
+    }
+
+    fetchProjectInfo();
+  }, []);
 
   return (
     <section className="w-full">
@@ -37,39 +46,61 @@ export const Projects = () => {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <div
-              key={project.title}
-              className="rounded-2xl border border-neutral-800 p-1"
-            >
-              <div className="h-full rounded-xl bg-neutral-950 p-6 transition-all hover:border-neutral-700 hover:bg-neutral-900">
-                <div className="flex items-start justify-between">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+          {state &&
+            state.map((project) => (
+              <div
+                key={project.id}
+                className="rounded-2xl border border-neutral-800 p-1"
+              >
+                <div className="h-full rounded-xl bg-neutral-950 p-6 transition-all hover:border-neutral-800 hover:bg-neutral-900">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-2xl font-semibold text-neutral-200">
+                      {project.name}
+                    </h3>
 
-                  <div className="flex gap-2">
-                    <a
-                      href={project.github}
-                      className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-800 text-sm hover:border-neutral-600"
-                    >
-                      G
-                    </a>
+                    <div className="flex gap-2">
+                      <Link
+                        href={project.githubLink ? project.githubLink : '#'}
+                        target="_blank"
+                        aria-label="github link"
+                        className="flex h-8 w-8 items-center justify-center text-neutral-400 hover:text-neutral-300 
+                        transition-all duration-100 font-extralight text-xs hover:border-neutral-600"
+                      >
+                        <GitBranch size={20} />
+                      </Link>
 
-                    <a
-                      href={project.live}
-                      className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-800 text-sm hover:border-neutral-600"
-                    >
-                      ↗
-                    </a>
+                      <Link
+                        href={project.deployLink ? project.deployLink : '#'}
+                        target="_blank"
+                        aria-label="deploy link"
+                        className="flex h-8 w-8 items-center justify-center text-neutral-400 hover:text-neutral-300 
+                        transition-all duration-100 font-extralight text-xs hover:border-neutral-600"
+                      >
+                        <Globe size={20} />
+                      </Link>
+                    </div>
                   </div>
-                </div>
 
-                <p className="mt-4 text-sm leading-relaxed text-neutral-400">
-                  {project.description}
-                </p>
+                  <div className="flex gap-4 mt-5">
+                    {project.techStack.map((item) => (
+                      <div
+                        key={item}
+                        className="bg-neutral-400/20  rounded-sm text-neutral-300 font-light
+                        border border-neutral-600 border-dashed shadow-[inset_0_0_4px_0_rgba(255,255,255,0.1)]
+                        backdrop-blur-sm text-sm pl-2 pr-2 py-1"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="mt-4 text-sm leading-relaxed text-neutral-400">
+                    {project.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>

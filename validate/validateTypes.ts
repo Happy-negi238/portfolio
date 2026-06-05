@@ -41,13 +41,14 @@ export const validateProject = z.object({
     .instanceof(File)
     .refine((file) => file.name ?? undefined)
     .optional(),
-  zodGithubLink: z
-    .url('Invalid GitHub URL')
-    .max(255, 'GitHub link must be at most 255 characters'),
-  zodDeployLink: z
-    .url('Invalid deploy URL')
-    .max(255, 'Deploy link must be at most 255 characters')
-    .optional(),
+  zodGithubLink: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.url('Invalid GitHub URL').max(255).optional()
+  ),
+  zodDeployLink: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.url('Invalid deploy URL').max(255).optional()
+  ),
 });
 
 export const validateAdminInput = z.object({
@@ -56,6 +57,19 @@ export const validateAdminInput = z.object({
     .max(255, 'Email must be at most 255 characters'),
   password: z.string().length(8, 'Password is required'),
 });
+
+export type Project = {
+  id: string;
+  name: string;
+  description: string;
+  techStack: string[];
+  githubLink: string | null;
+  deployLink: string | null;
+  image: string | null;
+  isDeleted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export type validateContactTypes = z.infer<typeof validateContact>;
 export type validateAdminTypes = z.infer<typeof validateAdmin>;

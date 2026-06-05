@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { useToggleOnscroll } from '@/lib/systaliko-ui/use-toggle-onscroll';
 import { HTMLMotionProps, motion } from 'motion/react';
 import Link from 'next/link';
-import { AdminDialog } from '../admindialog/admindialog';
+import { AdminDialog } from '@/components/admindialog/admindialog';
 
 export function HeaderLogo({
   ...props
@@ -25,28 +25,15 @@ export function Header({
   links,
   ...props
 }: HeaderProps) {
-  const { isHidden, setIsHidden } = toggleOnScroll
-    ? useToggleOnscroll()
-    : { isHidden: false, setIsHidden: () => {} };
-  const showHeader = () => setIsHidden(false);
-
   return (
-    <motion.header
+    <header
       className={cn(
-        'flex items-center w-full justify-between px-10',
+        'flex items-center w-full justify-between px-10 py-5 bg-black/20 backdrop-blur-md sticky top-0 z-20',
         className
       )}
-      animate={isHidden ? { y: '-120%' } : { y: '0%' }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      whileHover={{ y: '0%' }}
-      onFocusCapture={showHeader}
-      {...props}
     >
       <nav
-        className="flex gap-10 text-sm justify-center items-center text-center 
-      py-3 px-8 bg-neutral-400/20  rounded-sm
-          border border-neutral-600 border-dashed shadow-[inset_0_0_4px_0_rgba(255,255,255,0.1)]
-          backdrop-blur-lg"
+        className="flex gap-10 text-sm justify-center items-center text-center"
       >
         {links &&
           links.map((link) => (
@@ -56,11 +43,7 @@ export function Header({
           ))}
       </nav>
 
-      <AdminDialog
-        className="px-6 py-3 rounded-sm
-          border border-neutral-600 border-dashed shadow-[inset_0_0_4px_0_rgba(255,255,255,0.1)]
-          backdrop-blur-lg bg-neutral-400/20 text-sm"
-      />
-    </motion.header>
+      <AdminDialog/>
+    </header>
   );
 }

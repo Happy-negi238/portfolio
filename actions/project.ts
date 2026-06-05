@@ -111,7 +111,7 @@ export async function updateProject(
   projectName: string,
   projectDescription: string,
   projectTechStack: string[],
-  projectGithubLink: string,
+  projectGithubLink?: string,
   projectDeployLink?: string,
   projectImage?: File
 ) {
