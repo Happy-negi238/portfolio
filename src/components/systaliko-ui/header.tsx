@@ -1,9 +1,8 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { useToggleOnscroll } from '@/lib/systaliko-ui/use-toggle-onscroll';
 import { HTMLMotionProps, motion } from 'motion/react';
 import Link from 'next/link';
-import { AdminDialog } from '@/components/admindialog/admindialog';
+// import { ThemeMode } from '../thememode/thememode';
 
 export function HeaderLogo({
   ...props
@@ -32,9 +31,7 @@ export function Header({
         className
       )}
     >
-      <nav
-        className="flex gap-10 text-sm justify-center items-center text-center"
-      >
+      <nav className="flex gap-10 text-sm justify-center items-center text-center">
         {links &&
           links.map((link) => (
             <Link key={link.href} href={link.href}>
@@ -42,8 +39,7 @@ export function Header({
             </Link>
           ))}
       </nav>
-
-      <AdminDialog/>
+      {/* <ThemeMode /> */}
     </header>
   );
 }

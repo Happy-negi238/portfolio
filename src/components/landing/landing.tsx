@@ -17,7 +17,7 @@ export const Landing = () => {
               Welcome to my portfolio
             </p>
 
-            <h1 className="text-5xl font-bold leading-tight md:text-5xl tracking-tight">
+            <h1 className="text-5xl font-bold leading-tight md:text-5xl tracking-tight dark:text-white">
               Hi, I'm{' '}
               <span className="text-neutral-100">Full Stack Developer</span>
             </h1>

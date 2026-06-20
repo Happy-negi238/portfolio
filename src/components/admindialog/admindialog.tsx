@@ -7,19 +7,29 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils';
 import { validateAdminInputTypes } from '@/../validate/validateTypes';
 
 import { verifyUser } from '@/../actions/admin';
 
-export const AdminDialog = ({ className }: { className?: string }) => {
+type AdminDialogProps = {
+  className?: string;
+  open: boolean;
+  onSuccess: () => void;
+  onFail: () => void;
+};
+
+export const AdminDialog = ({
+  className,
+  open,
+  onSuccess,
+  onFail,
+}: AdminDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  const router = useRouter();
 
   const {
     register,
@@ -31,23 +41,36 @@ export const AdminDialog = ({ className }: { className?: string }) => {
 
   const submit: SubmitHandler<validateAdminInputTypes> = async (data) => {
     const { email, password } = data;
+    setError('');
+    setSuccess('');
+    setIsLoading(true);
+
     const response = await verifyUser(email, password);
+    setIsLoading(false);
 
     if (!response.success) {
       setError(response.message);
+      onFail();
       return;
     }
 
     setSuccess(response.message);
-    router.push('/admin');
+    onSuccess();
   };
 
   return (
     <div>
-      <Dialog>
-        <DialogTrigger asChild>
+      <Dialog
+        open={open}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            onFail();
+          }
+        }}
+      >
+        {/* <DialogTrigger asChild>
           <button className={cn('text-white', className)}>Admin</button>
-        </DialogTrigger>
+        </DialogTrigger> */}
 
         <DialogContent className="bg-neutral-700/40 text-white backdrop-blur-lg p-9">
           <DialogHeader>
@@ -128,6 +151,7 @@ export const AdminDialog = ({ className }: { className?: string }) => {
 
               <button
                 type="submit"
+                disabled={isLoading}
                 className="
                   w-full
                   rounded-lg
@@ -139,9 +163,11 @@ export const AdminDialog = ({ className }: { className?: string }) => {
                   transition-all
                   hover:bg-neutral-200
                   cursor-pointer
+                  disabled:cursor-not-allowed
+                  disabled:opacity-70
                   "
               >
-                Verify Admin
+                {isLoading ? 'Verifying...' : 'Verify Admin'}
               </button>
             </form>
           </div>
